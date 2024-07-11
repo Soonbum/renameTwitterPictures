@@ -84,7 +84,7 @@ namespace renameTwitterPictures
                 }
             }
 
-            Console.WriteLine("File processing completed.");
+            MessageBox.Show("처리 완료");
         }
     }
 }
