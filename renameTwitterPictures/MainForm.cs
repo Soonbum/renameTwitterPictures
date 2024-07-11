@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -29,12 +29,13 @@ namespace renameTwitterPictures
                     string selectedPath = folderBrowserDialog.SelectedPath;
                     ProcessFiles(selectedPath);
 
-                    // selectedPath 안에 있는 파일 목록을 저장하고, 이름 기준으로 오름차순 정렬
-
-                    // 목록 안에서 iterate
-                    // 파일명 문자열에서 "-" 기준으로 나눔
-                    // [0] 문자열로 된 디렉토리를 생성함
-                    // NeamoSub-1805174439564423582-01
+                    /*
+                     * selectedPath 안에는 "NeamoSub-1805174439564423582-01" 식으로 된 파일들이 있으며 확장자는 아무거나 올 수 있어.
+                     * 하이픈 기준으로 나누면 1번째 문자열은 Account, 2번째 TweetID, 3번째 문자열은 Serial이야.
+                     * 내가 원하는 코드는 동일한 Account는 전부 "@Account" 디렉토리 안에 넣되,
+                     * 파일명 오름차순대로 이름을 전부 바꿀거야. 이름은 "YYYYMMDD_nnnnnn.확장자"이어야 돼.
+                     * 여기서 YYYY는 연도, MM은 월, DD는 날짜이며 nnnnnn는 순번이며 000001부터 시작해야 돼.
+                     */
                 }
             }
         }
