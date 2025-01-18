@@ -30,11 +30,11 @@ namespace renameTwitterPictures
                     ProcessFiles(selectedPath);
 
                     /*
-                     * selectedPath 안에는 "NeamoSub-1805174439564423582-01" 식으로 된 파일들이 있으며 확장자는 아무거나 올 수 있어.
-                     * 하이픈 기준으로 나누면 1번째 문자열은 Account, 2번째 TweetID, 3번째 문자열은 Serial이야.
+                     * selectedPath 안에는 "HlsDeveloper-1880607867230900444-20250118222710-01" 식으로 된 파일들이 있으며 확장자는 아무거나 올 수 있어.
+                     * 하이픈 기준으로 나누면 1번째 문자열은 Account, 2번째 TweetID, 3번째 문자열은 DateTime(YYYYMMDDhhmmss), 4번째 문자열은 SequenceNumber야.
                      * 내가 원하는 코드는 동일한 Account는 전부 "@Account" 디렉토리 안에 넣되,
-                     * 파일명 오름차순대로 이름을 전부 바꿀거야. 이름은 "YYYYMMDD_nnnnnn.확장자"이어야 돼.
-                     * 여기서 YYYY는 연도, MM은 월, DD는 날짜이며 nnnnnn는 순번이며 000001부터 시작해야 돼.
+                     * 파일명 오름차순대로 이름을 전부 바꿀거야. 이름은 "YYYYMMDD_hhmmss-SequenceNumber.확장자"이어야 돼.
+                     * 여기서 YYYY는 연도, MM은 월, DD는 날짜이며 hhmmss는 시간-분-초이며 끝의 2자리 숫자는 순번이야.
                      */
                 }
             }
@@ -53,8 +53,8 @@ namespace renameTwitterPictures
                     FileName = Path.GetFileName(file),
                     Parts = Path.GetFileName(file).Split('-')
                 })
-                .Where(file => file.Parts.Length == 3)
-                .GroupBy(file => file.Parts[0]);
+                .Where(file => file.Parts.Length == 4)  // 파일명이 4개의 부분으로 나뉘어야 함 (Account, TweetID, DateTime, SequenceNumber)
+                .GroupBy(file => file.Parts[0]);    // // Account별로 그룹화
 
             foreach (var group in groupedFiles)
             {
@@ -75,7 +75,14 @@ namespace renameTwitterPictures
                 {
                     string originalPath = file.FilePath;
                     string extension = Path.GetExtension(originalPath);
-                    string newFileName = $"{DateTime.Now:yyyyMMdd}_{counter:D6}{extension}";
+                    string tweetDateTime = file.Parts[2]; // 3번째 부분이 DateTime(YYYYMMDDhhmmss)
+                    string sequenceNumber = file.Parts[3]; // 4번째 부분이 SequenceNumber
+
+                    // DateTime을 다시 포맷팅 (YYYYMMDD_hhmmss)
+                    string formattedDateTime = tweetDateTime.Insert(8, "_");
+
+                    // 새 파일명 생성: "YYYYMMDD_hhmmss-SequenceNumber.확장자"
+                    string newFileName = $"{formattedDateTime}-{sequenceNumber}";
                     string newFilePath = Path.Combine(accountDirectory, newFileName);
 
                     // 파일을 새 이름으로 이동합니다.

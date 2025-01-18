@@ -48,9 +48,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(43, 69);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(341, 48);
+            this.label2.Size = new System.Drawing.Size(356, 48);
             this.label2.TabIndex = 1;
-            this.label2.Text = "1. @Account 디렉토리를 각각 만듦\r\n2. TweetID 오름차순으로 정렬\r\n3. 현재 날짜 기준(YYYYMMDD_00000n-01.ext" +
+            this.label2.Text = "1. @Account 디렉토리를 각각 만듦\r\n2. TweetID 오름차순으로 정렬\r\n3. 현재 날짜 기준(YYYYMMDD_hhmmss-nn.ext" +
     ")으로 이름 변경\r\n4. 파일이 여러 개일 경우 n을 증가시킴";
             // 
             // button1
